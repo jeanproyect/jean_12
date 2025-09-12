@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>EcoVida - Historias de Éxito</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+
+    header {
+      background-color: #2e7d32;
+      color: white;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      background-color: #66bb6a;
+      padding: 8px 16px;
+      border-radius: 4px;
+      transition: background-color 0.3s;
+    }
+
+    nav a:hover {
+      background-color: #558b2f;
+    }
+
+    .contenido {
+      padding: 60px 40px;
+      background-color: white;
+      text-align: center;
+    }
+
+    .contenido h1 {
+      font-size: 36px;
+      margin-bottom: 20px;
+    }
+
+    .testimonios {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .testimonio {
+      background-color: #e8f5e9;
+      padding: 20px;
+      border-radius: 10px;
+      width: 300px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      text-align: left;
+    }
+
+    .testimonio img, 
+    .testimonio video {
+      width: 100%;
+      border-radius: 8px;
+      margin-bottom: 15px;
+    }
+
+    .testimonio h3 {
+      margin-bottom: 10px;
+      color: #2e7d32;
+    }
+
+    .testimonio p {
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    footer {
+      background-color: #1b5e20;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">EcoVida</div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="sobre.html">Sobre Nosotros</a></li>
+        <li><a href="productos.html">Productos</a></li>
+        <li><a href="historia.html">Historia</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="contenido">
+    <h1>Historias de Nuestros Clientes</h1>
+    <p>Conoce los testimonios reales de personas que han mejorado su calidad de vida con los productos naturales de EcoVida.</p>
+
+    <div class="testimonios">
+      <div class="testimonio">
+        <img src="https://i.pinimg.com/564x/4b/49/5c/4b495c1ecf6adf5cc3737ad6dc0bb86e.jpg" alt="Ana López disfrutando una infusión EcoVida">
+        <h3>Ana López</h3>
+        <p>"Después de probar las infusiones de EcoVida, noté una gran mejoría en mi digestión y mis niveles de energía. ¡Ahora son parte de mi rutina diaria!"</p>
+      </div>
+
+      <div class="testimonio">
+        <img src="https://i.pinimg.com/564x/f3/cd/df/f3cdfd38f1951f340fc3d4dbe10f6d0e.jpg" alt="Carlos Ruiz mostrando jabón artesanal EcoVida">
+        <h3>Carlos Ruiz</h3>
+        <p>"El jabón artesanal me ayudó a mejorar mi piel sensible. Es increíble cómo un producto tan natural puede tener resultados tan efectivos."</p>
+      </div>
+
+      <div class="testimonio">
+        <img src="https://i.pinimg.com/564x/8f/cc/28/8fcc28c17b7f1e44b4c585f24eaed64c.jpg" alt="Lucía Fernández con productos EcoVida">
+        <h3>Lucía Fernández</h3>
+        <p>"Soy alérgica a muchos productos químicos, pero con EcoVida encontré una alternativa segura y efectiva. ¡Gracias por existir!"</p>
+      </div>
+    </div>
+
+    <!-- 🔹 NUEVA SECCIÓN DE VIDEOS -->
+    <h2 style="margin-top:50px; color:#2e7d32;">Testimonios en Video</h2>
+    <div class="testimonios">
+      <div class="testimonio">
+        <video controls>
+          <source src="video1.mp4" type="video/mp4">
+          Tu navegador no soporta la reproducción de video.
+        </video>
+        <h3>Ana López</h3>
+        <p>"En este video comparto cómo las infusiones de EcoVida cambiaron mi día a día."</p>
+      </div>
+
+      <div class="testimonio">
+        <video controls>
+          <source src="video2.mp4" type="video/mp4">
+          Tu navegador no soporta la reproducción de video.
+        </video>
+        <h3>Carlos Ruiz</h3>
+        <p>"Aquí cuento cómo el jabón artesanal mejoró mi piel sensible."</p>
+      </div>
+    </div>
+  </section>
+
+  <footer id="contacto">
+    <p>Contacto: contacto@ecovida.com | Tel: +34 123 456 789</p>
+    <p>Síguenos en redes: @ecovida</p>
+  </footer>
+
+</body>
+</html>

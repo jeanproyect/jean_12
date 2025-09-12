@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>EcoVida - Productos Naturales</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+    }
+
+    header {
+      background-color: #2e7d32;
+      color: white;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      background-color: #66bb6a;
+      padding: 8px 16px;
+      border-radius: 4px;
+      transition: background-color 0.3s;
+    }
+
+    nav a:hover {
+      background-color: #558b2f;
+    }
+
+    /* Hero con carrusel de fondo */
+    .hero {
+      position: relative;
+      height: 400px;
+      overflow: hidden;
+    }
+
+    .carousel img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+      z-index: 1;
+    }
+
+    .carousel img.active {
+      opacity: 1;
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: absolute;
+      z-index: 2;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      color: white;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+    }
+
+    .hero-content h1 {
+      font-size: 48px;
+      margin-bottom: 10px;
+    }
+
+    .hero-content p {
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+
+    .btn {
+      background-color: #66bb6a;
+      color: white;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+
+    .sobre, .productos {
+      padding: 60px 40px;
+      text-align: center;
+      background-color: white;
+      margin-top: 20px;
+    }
+
+    .productos .grid {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    .producto {
+      background-color: #e8f5e9;
+      padding: 20px;
+      border-radius: 8px;
+      width: 250px;
+    }
+
+    .producto img {
+      width: 100%;
+      border-radius: 4px;
+    }
+
+    footer {
+      background-color: #1b5e20;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">EcoVida</div>
+    <nav>
+      <ul>
+        <li><a href="sobre.html">Sobre Nosotros</a></li> <!-- ✅ Enlace a nueva página -->
+        <li><a href="productos.html">Productos</a></li> <!-- 🔄 Este enlace ahora lleva a productos.html -->
+        <li><a href="#contacto">Contacto</a></li>
+          <li><a href="historia.html">Historia</a></li> <!-- ✅ Nuevo botón hacia la nueva página -->
+
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Sección HERO con carrusel de fondo -->
+  <section class="hero">
+    <div class="carousel" id="carousel">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQifJBoOelNba8YBGou3bUPH7ZAsCHhln0GYA&s" class="active" alt="Imagen 1">
+      <img src="https://aynidaxen.com/wp-content/uploads/2025/04/Lingzhi-Coffee-Black-DXN-1.jpg" alt="Imagen 2">
+      <img src="https://i.pinimg.com/564x/4c/f7/8c/4cf78cd7e1ce7fd47129a42b554e20c7.jpg" alt="Imagen 3">
+    </div>
+    <div class="hero-content">
+      <h1>Bienvenido a EcoVida</h1>
+      <p>Productos naturales, saludables y sostenibles</p>
+      <a href="productos.html" class="btn">Ver Productos</a>
+    </div>
+  </section>
+
+ 
+
+  <section id="productos" class="productos">
+    <h2>Nuestros Productos</h2>
+    <div class="grid">
+      <div class="producto">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3WtFqAXQwfaQVwNO8LMhwV-3_BnQv9Edfmg&s" alt="Producto 1">
+        <h3>Jabón Artesanal</h3>
+        <p>Hecho con aceites esenciales y sin químicos.</p>
+      </div>
+      <div class="producto">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpbgN-0vGYv-WVfkcj3lBXQrFxJL1C4fLq8w&s" alt="Producto 2">
+        <h3>Infusiones Naturales</h3>
+        <p>Mezclas de hierbas orgánicas para tu bienestar.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer id="contacto">
+    <p>Contacto: contacto@ecovida.com | Tel: +34 123 456 789</p>
+    <p>Síguenos en redes: @ecovida</p>
+  </footer>
+
+  <!-- Script para carrusel -->
+  <script>
+    const images = document.querySelectorAll('#carousel img');
+    let current = 0;
+
+    setInterval(() => {
+      images[current].classList.remove('active');
+      current = (current + 1) % images.length;
+      images[current].classList.add('active');
+    }, 2000);
+  </script>
+</body>
+</html>
