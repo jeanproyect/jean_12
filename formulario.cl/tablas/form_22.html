@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulario Fila 22</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f2f5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px;
+    }
+    form {
+      background-color: #fff;
+      padding: 20px 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      width: 350px;
+      margin-top: 20px;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px;
+      width: 100%;
+      border: none;
+      border-radius: 5px;
+      background-color: #673AB7;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #512DA8;
+    }
+  </style>
+</head>
+<body>
+
+  <form id="formFila22">
+    <h2>Formulario Fila 22</h2>
+    
+    <label for="nombre22">Nombre:</label>
+    <input type="text" id="nombre22" name="nombre22" required>
+
+    <label for="curso22">Curso:</label>
+    <input type="text" id="curso22" name="curso22" value="Basica" readonly>
+
+    <label for="numero_computador22">Número de Computador:</label>
+    <input type="text" id="numero_computador22" name="numero_computador22" value="comp_22" readonly>
+
+    <button type="submit">Enviar Fila 22</button>
+  </form>
+
+  <script>
+    const form22 = document.getElementById('formFila22');
+
+    form22.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const datos = {
+        nombre: form22.nombre22.value,
+        curso: form22.curso22.value,
+        numero_computador: form22.numero_computador22.value,
+        fecha: new Date().toLocaleDateString(),
+        hora: new Date().toLocaleTimeString()
+      };
+
+      // Obtener registros del localStorage
+      const registros = JSON.parse(localStorage.getItem('registros')) || [];
+
+      // Si no existe la fila 22, la agregamos vacía
+      while (registros.length < 22) {
+        registros.push({ nombre: '', curso: '', numero_computador: '', fecha: '', hora: '' });
+      }
+
+      // Reemplazamos la fila 22 (índice 21)
+      registros[21] = datos;
+
+      // Guardar en localStorage
+      localStorage.setItem('registros', JSON.stringify(registros));
+
+      alert('Fila 22 actualizada correctamente ✅');
+
+      form22.reset();
+    });
+  </script>
+
+</body>
+</html>
