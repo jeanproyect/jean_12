@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AREA DE INFORMÁTICA</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f2f5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px;
+    }
+
+    h2 {
+      margin-bottom: 15px;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 70%;
+      background-color: #fff;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      margin-top: 20px;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    #tablaRegistro tbody tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    .mensaje {
+      margin-top: 15px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    /* Botón Compartir grande y llamativo */
+    #btnCompartir {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 15px 25px;
+      font-size: 18px;
+      font-weight: bold;
+      background: linear-gradient(45deg, #4CAF50, #45a049);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      transition: all 0.3s ease;
+      z-index: 1000;
+    }
+
+    #btnCompartir:hover {
+      background: linear-gradient(45deg, #45a049, #4CAF50);
+      transform: scale(1.05);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+    }
+
+    /* Modal compartir */
+    #modalCompartir {
+      display:none;
+      position:fixed;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      background-color: rgba(0,0,0,0.6);
+      justify-content:center;
+      align-items:center;
+      z-index: 2000;
+    }
+
+    #modalContenido {
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      padding: 30px;
+      border-radius: 15px;
+      width: 400px;
+      max-width: 90%;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      animation: popUp 0.3s ease;
+    }
+
+    #modalContenido h3 {
+      text-align:center;
+      color: #fff;
+      margin-bottom: 15px;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.4);
+    }
+
+    #modalContenido input, #modalContenido textarea, #modalContenido select {
+      width:100%;
+      margin-bottom:15px;
+      padding:10px;
+      border: none;
+      border-radius: 8px;
+      box-sizing:border-box;
+    }
+
+    #modalContenido textarea {
+      resize: vertical;
+      height: 80px;
+    }
+
+    #modalContenido button {
+      padding: 10px 15px;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    #enviarCorreo {
+      background-color: #28a745;
+      color: white;
+    }
+
+    #enviarCorreo:hover {
+      background-color: #218838;
+    }
+
+    #cerrarModal {
+      background-color: #dc3545;
+      color: white;
+    }
+
+    #cerrarModal:hover {
+      background-color: #c82333;
+    }
+
+    /* Animación modal */
+    @keyframes popUp {
+      0% { transform: scale(0.7); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <h2>AREA DE INFORMÁTICA</h2>
+  <h2>Préstamo de Computadores</h2>
+
+  <div class="mensaje" id="mensajeEstado"></div>
+
+  <table id="tablaRegistro">
+    <thead>
+      <tr>
+        <th>Número de Computador</th>
+        <th>Nombre</th>
+        <th>Curso</th>
+        <th>Fecha</th>
+        <th>Hora</th>
+        <th>Rango Horario</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Registros aparecerán aquí -->
+    </tbody>
+  </table>
+
+  <!-- Botón Compartir -->
+  <button id="btnCompartir" title="Compartir tabla por correo">
+    📤 Compartir
+  </button>
+
+  <!-- Modal para compartir -->
+  <div id="modalCompartir">
+    <div id="modalContenido">
+      <h3>📧 Enviar por correo</h3>
+      <label>Correo:</label>
+      <input type="email" id="correoDestino" placeholder="ejemplo@correo.com">
+      <label>Asunto:</label>
+      <input type="text" id="asuntoCorreo" placeholder="Asunto">
+      <label>Mensaje:</label>
+      <textarea id="mensajeCorreo" placeholder="Mensaje"></textarea>
+      <label>Tipo de archivo:</label>
+      <select id="tipoArchivo">
+        <option value="pdf" selected>PDF</option>
+        <option value="csv">CSV</option>
+      </select>
+      <button id="enviarCorreo">Enviar</button>
+      <button id="cerrarModal">Cancelar</button>
+    </div>
+  </div>
+
+  <!-- Librería jsPDF para generar PDF -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+
+  <script>
+    const tabla = document.getElementById('tablaRegistro').querySelector('tbody');
+    const mensajeEstado = document.getElementById('mensajeEstado');
+
+    const rangosPermitidos = [
+      {inicio: 8*60, fin: 9*60+30, nombre: "08:00 - 09:30"},
+      {inicio: 9*60+45, fin: 11*60+15, nombre: "09:45 - 11:15"},
+      {inicio: 11*60+30, fin: 13*60, nombre: "11:30 - 13:00"},
+      {inicio: 13*60+45, fin: 15*60+15, nombre: "13:45 - 15:15"},
+      {inicio: 15*60+25, fin: 15*60+55, nombre: "15:25 - 15:55"},
+      {inicio: 15*60+55, fin: 16*60+25, nombre: "15:55 - 16:25"}
+    ];
+
+    function obtenerRangoHorario(hora, minutos) {
+      const totalMinutos = hora*60 + minutos;
+      const rango = rangosPermitidos.find(r => totalMinutos >= r.inicio && totalMinutos <= r.fin);
+      return rango ? rango.nombre : "Fuera de horario";
+    }
+
+    function cargarRegistros() {
+      let registros = JSON.parse(localStorage.getItem('registros')) || [];
+      tabla.innerHTML = "";
+
+      if (registros.length === 0) {
+        for (let i = 0; i < 44; i++) {
+          const fila = document.createElement('tr');
+          fila.innerHTML = `<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>`;
+          tabla.appendChild(fila);
+        }
+        mensajeEstado.textContent = "📋 No hay registros cargados aún.";
+        mensajeEstado.style.color = "gray";
+      } else {
+        registros.forEach(datos => {
+          const hora = new Date(datos.fecha + " " + datos.hora);
+          const rango = obtenerRangoHorario(hora.getHours(), hora.getMinutes());
+          const fila = document.createElement('tr');
+          fila.innerHTML = `
+            <td>${datos.numero_computador || ""}</td>
+            <td>${datos.nombre || ""}</td>
+            <td>${datos.curso || ""}</td>
+            <td>${datos.fecha || ""}</td>
+            <td>${datos.hora || ""}</td>
+            <td>${rango}</td>
+          `;
+          tabla.appendChild(fila);
+        });
+        mensajeEstado.textContent = "✅ Datos cargados correctamente.";
+        mensajeEstado.style.color = "green";
+      }
+    }
+
+    window.addEventListener('load', cargarRegistros);
+    setInterval(cargarRegistros, 10000);
+
+    // ---- Compartir y generar PDF/CSV ----
+    const btnCompartir = document.getElementById('btnCompartir');
+    const modal = document.getElementById('modalCompartir');
+    const cerrarModal = document.getElementById('cerrarModal');
+    const enviarCorreo = document.getElementById('enviarCorreo');
+
+    btnCompartir.addEventListener('click', () => modal.style.display = 'flex');
+    cerrarModal.addEventListener('click', () => modal.style.display = 'none');
+
+    enviarCorreo.addEventListener('click', () => {
+      const email = document.getElementById('correoDestino').value;
+      const asunto = document.getElementById('asuntoCorreo').value;
+      const mensaje = document.getElementById('mensajeCorreo').value;
+      const tipo = document.getElementById('tipoArchivo').value;
+
+      if(!email){
+        alert("Por favor ingresa un correo válido.");
+        return;
+      }
+
+      if(tipo === 'pdf'){
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        doc.text(asunto, 10, 10);
+        doc.text(mensaje, 10, 20);
+        doc.autoTable({ html: '#tablaRegistro', startY: 40 });
+        doc.save('tabla.pdf');
+        alert("PDF generado (simulación de envío).");
+      } else {
+        // CSV simple
+        let csv = [];
+        const rows = document.querySelectorAll("#tablaRegistro tr");
+        rows.forEach(row => {
+          const cols = row.querySelectorAll("td, th");
+          const data = Array.from(cols).map(col => `"${col.innerText}"`).join(",");
+          csv.push(data);
+        });
+        const csvStr = csv.join("\n");
+        const blob = new Blob([csvStr], {type: 'text/csv'});
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'tabla.csv';
+        link.click();
+        alert("CSV generado (simulación de envío).");
+      }
+
+      modal.style.display = 'none';
+    });
+  </script>
+
+</body>
+</html>
