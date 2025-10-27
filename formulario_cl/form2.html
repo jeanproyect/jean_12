@@ -15,7 +15,7 @@
     }
     form {
       background-color: #fff;
-      padding: 20px 30px;
+      padding: 30px 40px;
       border-radius: 8px;
       box-shadow: 0 4px 6px rgba(0,0,0,0.1);
       width: 350px;
@@ -59,7 +59,7 @@
   <form id="formFila2">
     <h2>Formulario-2</h2>
     
-    <label for="nombre2">Nombre:</label>
+    <label for="nombre2">Nombres y Apellidos:</label>
     <input type="text" id="nombre2" name="nombre2" required>
 
     <label for="curso2">Curso:</label>
@@ -89,28 +89,35 @@
       {inicio: 15*60+55, fin: 16*60+25}
     ];
 
+    // Obtener índice del rango actual, o -1 si fuera de horario
     function obtenerRangoActual() {
       const ahora = new Date();
       const minutos = ahora.getHours()*60 + ahora.getMinutes();
       return rangosPermitidos.findIndex(r => minutos >= r.inicio && minutos <= r.fin);
     }
 
+    // Verificar si el botón debe habilitarse
     function verificarEnvio() {
-      const registrosEnvios = JSON.parse(localStorage.getItem('enviosFormulario2')) || {};
       const rangoActual = obtenerRangoActual();
+      const registrosEnvios = JSON.parse(localStorage.getItem('enviosFormulario2')) || {};
+
       if (rangoActual === -1) {
-        btnEnviar2.disabled = true; // Fuera de horario
+        btnEnviar2.disabled = true;
+        btnEnviar2.textContent = "Fuera de horario ⏰";
       } else if (registrosEnvios[rangoActual]) {
-        btnEnviar2.disabled = true; // Ya envió en este rango
+        btnEnviar2.disabled = true;
+        btnEnviar2.textContent = "Ya enviaste en este rango ✅";
       } else {
-        btnEnviar2.disabled = false; // Puede enviar
+        btnEnviar2.disabled = false;
+        btnEnviar2.textContent = "Enviar Fila 2";
       }
     }
 
-    // Revisar cada 10 segundos
+    // Verificar cada 10 segundos y al cargar la página
     setInterval(verificarEnvio, 10000);
     window.addEventListener('load', verificarEnvio);
 
+    // Envío del formulario
     form2.addEventListener('submit', (e) => {
       e.preventDefault();
       const rangoActual = obtenerRangoActual();
@@ -142,7 +149,7 @@
 
       alert('Fila 2 enviada correctamente ✅');
       form2.reset();
-      verificarEnvio(); // Deshabilitar botón
+      verificarEnvio(); // Actualiza estado del botón inmediatamente
     });
   </script>
 

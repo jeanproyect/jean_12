@@ -59,7 +59,7 @@
   <form id="registroForm">
     <h2>Formulario-1</h2>
     
-    <label for="nombre">Nombre:</label>
+    <label for="nombre">Nombres y Apellidos:</label>
     <input type="text" id="nombre" name="nombre" required>
 
     <label for="curso">Curso:</label>
@@ -79,7 +79,7 @@
     const form = document.getElementById('registroForm');
     const btnEnviar = document.getElementById('btnEnviar');
 
-    // 🔹 Rangos permitidos en minutos desde medianoche
+    // Rangos permitidos en minutos desde medianoche
     const rangosPermitidos = [
       {inicio: 8*60, fin: 9*60+30},
       {inicio: 9*60+45, fin: 11*60+15},
@@ -89,32 +89,40 @@
       {inicio: 15*60+55, fin: 16*60+25}
     ];
 
+    // Obtener índice del rango actual
     function obtenerRangoActual() {
       const ahora = new Date();
       const minutos = ahora.getHours()*60 + ahora.getMinutes();
       return rangosPermitidos.findIndex(r => minutos >= r.inicio && minutos <= r.fin);
     }
 
+    // Verificar si el botón debe habilitarse
     function verificarEnvio() {
-      const envios = JSON.parse(localStorage.getItem('enviosFormulario1')) || {};
       const rangoActual = obtenerRangoActual();
+      const envios = JSON.parse(localStorage.getItem('enviosFormulario1')) || {};
+
       if (rangoActual === -1) {
-        btnEnviar.disabled = true; // Fuera de horario
+        btnEnviar.disabled = true;
+        btnEnviar.textContent = "Fuera de horario ⏰";
       } else if (envios[rangoActual]) {
-        btnEnviar.disabled = true; // Ya envió en este rango
+        btnEnviar.disabled = true;
+        btnEnviar.textContent = "Ya enviaste en este rango ✅";
       } else {
-        btnEnviar.disabled = false; // Puede enviar
+        btnEnviar.disabled = false;
+        btnEnviar.textContent = "Enviar";
       }
     }
 
-    // Revisar cada 10 segundos
+    // Revisar cada 10 segundos y al cargar la página
     setInterval(verificarEnvio, 10000);
     window.addEventListener('load', verificarEnvio);
 
+    // Envío del formulario
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       const ahora = new Date();
       const rangoActual = obtenerRangoActual();
+
       if (rangoActual === -1) {
         alert("⏰ Solo se puede enviar dentro de los horarios permitidos.");
         return;
@@ -143,7 +151,7 @@
 
       alert('✅ Registro enviado correctamente.');
       form.reset();
-      verificarEnvio();
+      verificarEnvio(); // Actualiza estado del botón
     });
   </script>
 
